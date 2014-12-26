@@ -25,14 +25,14 @@ include $(INCLUDE_DIR)/package.mk
 define Package/redsocks2
 	SECTION:=net
 	CATEGORY:=Network
-	SUBMENU:=Web Servers/Proxies
-	DEPENDS:=+libevent2
 	TITLE:=Redirect any TCP connection to a SOCKS or HTTPS proxy server
+	URL:=https://github.com/semigodking/redsocks
+	DEPENDS:=+libevent2
 endef
 
 define Package/redsocks2/description
-This is a modified version of original redsocks.
-The name is changed to be REDSOCKS2 since this release to distinguish with original redsocks. 
+This is a modified version of original redsocks. \
+The name is changed to be REDSOCKS2 since this release to distinguish with original redsocks. \
 This variant is useful for anti-GFW (Great Fire Wall).
 endef
 
