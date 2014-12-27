@@ -1,4 +1,4 @@
-OpenWrt's Redsocks2 Makefile
+OpenWrt's RedSocks2 Makefile
 ===
 
  > 当前版本: 0.60-2  
