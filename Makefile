@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=redsocks2
 PKG_VERSION:=0.60
-PKG_RELEASE=1
+PKG_RELEASE=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/aa65535/openwrt-redsocks2/releases/download/v$(PKG_VERSION)
@@ -34,6 +34,10 @@ define Package/redsocks2/description
 This is a modified version of original redsocks. \
 The name is changed to be REDSOCKS2 since this release to distinguish with original redsocks. \
 This variant is useful for anti-GFW (Great Fire Wall).
+endef
+
+define Package/shadowsocks-libev-spec/conffiles
+/etc/config/redsocks2
 endef
 
 define Package/redsocks2/install
