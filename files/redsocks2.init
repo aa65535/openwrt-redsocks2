@@ -26,10 +26,9 @@ start_redsocks2() {
 		-e "s#|PROXY_IP|#$proxy_ip#" \
 		-e "s#|PROXY_PORT|#$proxy_port#" \
 		-e "s#|AUTO_PROXY|#$auto_proxy#" \
-		-e "s#|TIMEOUT|#${timeout:-0}#" \
+		-e "s#|TIMEOUT|#${timeout:-5}#" \
 		$TPL >$CONFIG
-
-	service_start /usr/bin/redsocks2 -c $CONFIG
+	service_start /usr/bin/redsocks2 -c $CONFIG || exit 1
 
 	iptables-restore -n <<-EOF
 		*nat
