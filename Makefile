@@ -13,10 +13,11 @@ PKG_RELEASE=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/aa65535/openwrt-redsocks2/releases/download/v$(PKG_VERSION)
-PKG_MAINTAINER:=Zhuofei Wang <SemigodKing@gmail.com>
+PKG_MD5SUM:=14276466db225282b417dd9fab8b83e5
 
 PKG_LICENSE:=GPLv2
 PKG_LICENSE_FILES:=LICENSE
+PKG_MAINTAINER:=Zhuofei Wang <SemigodKing@gmail.com>
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)/$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 
