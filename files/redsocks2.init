@@ -21,6 +21,7 @@ get_args() {
 }
 
 start_redsocks2() {
+	mkdir -p $(dirname $CONFIG)
 	sed -e "s#|LOCAL_PORT|#$local_port#" \
 		-e "s#|PROXY_TYPE|#$proxy_type#" \
 		-e "s#|PROXY_IP|#$proxy_ip#" \
@@ -54,6 +55,13 @@ start_redsocks2() {
 		-A zone_lan_prerouting -p tcp -j REDSOCKS2
 		COMMIT
 EOF
+}
+
+boot() {
+	until iptables-save -t nat | grep -q "^:zone_lan_prerouting"; do
+		sleep 1
+	done
+	start
 }
 
 start() {
