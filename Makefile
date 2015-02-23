@@ -37,7 +37,7 @@ The name is changed to be REDSOCKS2 since this release to distinguish with origi
 This variant is useful for anti-GFW (Great Fire Wall).
 endef
 
-define Package/shadowsocks-libev-spec/conffiles
+define Package/redsocks2/conffiles
 /etc/config/redsocks2
 endef
 
