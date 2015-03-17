@@ -8,7 +8,6 @@ SERVICE_WRITE_PID=1
 SERVICE_DAEMONIZE=1
 
 CONFIG=/var/etc/redsocks2.conf
-TPL=/etc/redsocks2/config.template
 
 get_args() {
 	config_get_bool enable $1 enable
@@ -18,17 +17,34 @@ get_args() {
 	config_get proxy_port $1 proxy_port
 	config_get_bool auto_proxy $1 auto_proxy
 	config_get timeout $1 timeout
+	config_get encrypt_method $1 encrypt_method
+	config_get password $1 password
 }
 
 start_redsocks2() {
 	mkdir -p $(dirname $CONFIG)
-	sed -e "s#|LOCAL_PORT|#$local_port#" \
-		-e "s#|PROXY_TYPE|#$proxy_type#" \
-		-e "s#|PROXY_IP|#$proxy_ip#" \
-		-e "s#|PROXY_PORT|#$proxy_port#" \
-		-e "s#|AUTO_PROXY|#$auto_proxy#" \
-		-e "s#|TIMEOUT|#${timeout:-5}#" \
-		$TPL >$CONFIG
+	cat <<-EOF > $CONFIG
+		base {
+		    log_debug = off;
+		    log_info = off;
+		    log = "file:/dev/null";
+		    daemon = off;
+		    redirector = iptables;
+		}
+		redsocks {
+		    local_ip = 0.0.0.0;
+		    local_port = $local_port;
+		    ip = $proxy_ip;
+		    port = $proxy_port;
+		    type = $proxy_type;
+		    autoproxy = $auto_proxy;
+		    timeout = ${timeout:-5};
+EOF
+	if [ "shadowsocks" = "$proxy_type" ]; then
+		echo "    login = '$encrypt_method';" >> $CONFIG
+		echo "    password = '$password';" >> $CONFIG
+	fi
+	echo "}" >> $CONFIG
 	service_start /usr/bin/redsocks2 -c $CONFIG || exit 1
 
 	iptables-restore -n <<-EOF

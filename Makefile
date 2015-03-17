@@ -28,7 +28,7 @@ define Package/redsocks2
 	CATEGORY:=Network
 	TITLE:=Redirect any TCP connection to a SOCKS or HTTPS proxy server
 	URL:=https://github.com/semigodking/redsocks
-	DEPENDS:=+libevent2
+	DEPENDS:=+libevent2 +libopenssl
 endef
 
 define Package/redsocks2/description
