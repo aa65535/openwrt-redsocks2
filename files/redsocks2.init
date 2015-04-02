@@ -41,8 +41,10 @@ start_redsocks2() {
 		    timeout = ${timeout:-5};
 EOF
 	if [ "shadowsocks" = "$proxy_type" ]; then
-		echo "    login = '$encrypt_method';" >> $CONFIG
-		echo "    password = '$password';" >> $CONFIG
+		cat <<-EOF >> $CONFIG
+			    login = "$encrypt_method";
+			    password = "$password";
+EOF
 	fi
 	echo "}" >> $CONFIG
 	service_start /usr/bin/redsocks2 -c $CONFIG || exit 1
